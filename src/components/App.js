@@ -1,12 +1,13 @@
 import '../styles/App.css';
+import Signup from './Auth/Signup';
 import FlashcardList from './FlashcardList';
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold ">
-      Hello world!
+    <>
+      <Signup />
       <FlashcardList id={3}/>
-    </h1>
+    </>
   );
 }
 

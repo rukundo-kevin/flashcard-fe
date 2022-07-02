@@ -9,6 +9,7 @@ import {
   createHttpLink,
   InMemoryCache
 } from '@apollo/client';
+import AllRoutes from './routes';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:7000'
@@ -21,7 +22,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <AllRoutes/>
   </ApolloProvider>,
   document.getElementById('root')
 );

@@ -1,32 +1,72 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
-import signupFields from '../../constants/formFields';
-import register from '../../redux/actions/auth.action';
 import FormAction from './FormAction';
 import Input from './Input';
 import Alert from './Alert';
+import Header from './Header';
+import FormExtra from './FormExtra';
 
-import { registerFail } from '../../redux/features/auth.feature';
+const fields  = [
+  {
+    labelText: 'Username',
+    labelFor: 'username',
+    id: 'username',
+    name: 'username',
+    type: 'text',
+    autoComplete: 'username',
+    isRequired: true,
+    placeholder: 'Enter your username',
+  },
+  {
+    labelText: 'Email address',
+    labelFor: 'email-address',
+    id: 'email',
+    name: 'email',
+    type: 'email',
+    autoComplete: 'email',
+    isRequired: true,
+    placeholder: 'Enter your email address',
+  },
+  {
+    labelText: 'Password',
+    labelFor: 'password',
+    id: 'password',
+    name: 'password',
+    type: 'password',
+    autoComplete: 'current-password',
+    isRequired: true,
+    placeholder: 'Enter Password',
+  },
+  {
+    labelText: 'Confirm Password',
+    labelFor: 'confirm-password',
+    id: 'confirmPassword',
+    name: 'confirm-password',
+    type: 'password',
+    autoComplete: 'confirm-password',
+    isRequired: true,
+    placeholder: 'Confirm Password',
+  },
+];
 
-const fields = signupFields;
 const fieldsState = {};
 
 fields.forEach((field) => (fieldsState[field.id] = ''));
 
 const Signup = () => {
   const [signupState, setSignupState] = useState(fieldsState);
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { message, error } = useSelector((state) => state.register);
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (message.length > 1) return navigate('../login');
-    }, 300);
-  }, [message]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (message.length > 1) return navigate('../login');
+  //   }, 300);
+  // }, [message]);
 
   const handleChange = (e) => setSignupState({ ...signupState, [e.target.id]: e.target.value });
 
@@ -34,12 +74,15 @@ const Signup = () => {
     e.preventDefault();
     const { firstname, lastname, email, password, confirmPassword } = signupState;
     if (password !== confirmPassword) {
-      return dispatch(registerFail("Passwords don't match"));
+      return setError("Passwords don't match");
     }
-    dispatch(register({ firstname, lastname, email, password }));
+   console.log("Call register api")
   };
 
   return (
+    <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-900">
+    <div className="max-w-md w-full space-y-8 border p-8 rounded shadow-sm bg-white">
+    <Header heading="Create an account" />
     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
       <div className="">
         {error && <Alert message={error.payload} heading="Error" variant="error" />}
@@ -58,9 +101,12 @@ const Signup = () => {
             placeholder={field.placeholder}
           />
         ))}
+        <FormExtra />
         <FormAction handleSubmit={handleSubmit} text="Register" />
       </div>
     </form>
+    </div>
+    </div>
   );
 };
 
