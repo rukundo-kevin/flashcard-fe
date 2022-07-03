@@ -2,12 +2,15 @@
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 
 import FormAction from './FormAction';
 import FormExtra from './FormExtra';
 import Input from './Input';
 import Alert from './Alert';
 import Header from './Header';
+
+import { LOGIN_MUTATION } from '../../api/auth.api';
 
 const fields  = [
   {
@@ -30,7 +33,8 @@ const fields  = [
     isRequired: true,
     placeholder: 'Enter Password',
   },
-];;
+];
+
 const fieldsState = {};
 fields.forEach((field) => {
   fieldsState[field.id] = '';
@@ -39,14 +43,24 @@ fields.forEach((field) => {
 const Login = () => {
   const [loginState, setLoginState] = useState(fieldsState);
   const [error, setError] = useState("");
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setAuth] = useState(false);
 
   const navigate = useNavigate();
 
+  const [userLogin] = useMutation(LOGIN_MUTATION, {
+    variables: {
+      email: loginState.email,
+      password: loginState.password
+    },
+    onCompleted: ({ login }) => {
+      localStorage.setItem("AUTH_TOKEN", login.token);
+      navigate('/');
+    }
+  })
 
   useEffect(() => {
     setTimeout(() => {
-      if (isAuth) return navigate('../dashboard');
+      if (isAuth) return navigate('../');
     }, 300);
   }, [isAuth]);
 
@@ -57,7 +71,15 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email, password } = loginState;
-   console.log("THis should call login api")
+    userLogin(email, password)
+    .then(data=> data.json())
+    .then(res=>console.log(res))
+    .catch( err=>
+      {
+       let {message} = JSON.parse((JSON.stringify(err)));
+        setError(message)
+      }
+    )
   };
 
   return (
@@ -67,7 +89,7 @@ const Login = () => {
       <div className="">
       <Header heading="Login to Flashcards" />
 
-        {error && <Alert message={error.payload} heading="Error" variant="error" />}
+        {error && <Alert message={error} heading="Error" variant="error" />}
         {isAuth && <Alert message="Login successful" heading="Success" variant="success" />}
         {fields.map((field) => (
           <Input
