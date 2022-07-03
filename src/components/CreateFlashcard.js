@@ -46,44 +46,48 @@ fields.forEach((field) => (fieldsState[field.id] = ''));
 const CreateFlashcard = () => {
   const [formState, setFormstate] = useState(fieldsState);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
-  const [createFlashcard] = useMutation(CREATE_FLASHCARD, {
+  const [create] = useMutation(CREATE_FLASHCARD, {
     variables: {
-      tile: formState.tile,
+      title: formState.title,
       question: formState.question,
       answer: formState.answer
     },
-    onCompleted: ({ signup }) => {
-      localStorage.setItem("AUTH_TOKEN", signup.token);
-      navigate('/');
-    }
+    onCompleted: ({ create }) => {
+        setMessage("Adding card successful")
+        setError("")
+        setFormstate(fieldsState);
+    } 
   })
 
   const handleChange = (e) => setFormstate({ ...formState, [e.target.id]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { username, email, password, confirmPassword } = formState;
-    if (password !== confirmPassword) {
-      return setError("Passwords don't match");
-    }
-    createFlashcard(username, email, password)
+    const { tile, question, answer } = formState;
+
+    create(tile, question, answer)
     .then(data=> console.log(data))
     .then(res=>console.log(res))
     .catch( err=>
       {
        let {message} = JSON.parse((JSON.stringify(err)));
         setError(message)
+        setError("")
+
       }
-    )  };
+    )  
+};
   return (
     <div className="min-h-full h-screen  items-center py-12 px-4 sm:px-6 lg:px-8 pb-36">
     <div className="max-w-md w-full space-y-8 border p-8 rounded shadow-sm bg-white">
     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
       <div className="">
         {error && <Alert message={error} heading="Error" variant="error" />}
+        {message && <Alert message={message} heading="Success" variant="success" />}
         {fields.map((field) => (
           <Input
             key={field.id}

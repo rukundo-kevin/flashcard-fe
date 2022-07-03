@@ -29,7 +29,7 @@ mutation CREATE_FLASHCARD(
   $answer: String!
   $question: String!
 ) {
-  signup(answer: $answer, question: $question, title: $title) {
+  create(answer: $answer, question: $question, title: $title) {
     title
   }
 }

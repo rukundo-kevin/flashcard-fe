@@ -5,6 +5,7 @@ import Login from '../components/Auth/Login';
 import Signup from '../components/Auth/Signup';
 import CreateFlashcard from '../components/CreateFlashcard';
 import Dashboard from '../components/Dashboard';
+import FlashcardList from '../components/FlashcardList';
 
 const AllRoutes = () => (
   <Router>
@@ -14,6 +15,7 @@ const AllRoutes = () => (
       <Route path="/" element={<App />} />
       <Route path="/dashboard" element={<Dashboard />} >
          <Route path='create' element={<CreateFlashcard />} />
+         <Route path='viewCards' element={<FlashcardList />} />
       </Route>
     </Routes>
   </Router>

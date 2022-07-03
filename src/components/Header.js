@@ -12,12 +12,12 @@ const LandingHeader = () => {
       </div>
       <div className="flex list-none w-1/2 justify-flexStart items-center text-white cursor-pointer ">
         <li className="px-4">
-          <Link to="create" className="hover:text-[#FAB33F] transition duration-300">
+          <Link to="create" className="hover:text-blue-200 transition duration-300">
             Create New Card
           </Link>
         </li>
         <li className="px-60">
-          <Link to="/services" className="hover:text-[#FAB33F] transition duration-300">
+          <Link to="viewCards" className="hover:text-blue-200 transition duration-300">
             View Cards
           </Link>
         </li>
