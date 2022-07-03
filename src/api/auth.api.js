@@ -11,4 +11,16 @@ mutation LoginMutation(
 }
 `;
 
+export const REGISTER_MUTATION = gql`
+mutation RegisterMutation(
+  $username: String!
+  $email: String!
+  $password: String!
+) {
+  signup(email: $email, password: $password, names: $username) {
+    token
+  }
+}
+`;
+
 

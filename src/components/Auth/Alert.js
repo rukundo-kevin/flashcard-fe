@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Alert = ({ message, heading, variant, customClass }) => {
+export const Alert = ({ message, heading, variant, customClass }) => {
   let alertClass;
   if (variant === 'error') {
     alertClass = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative my-5 ';
@@ -28,5 +28,3 @@ Alert.defaultProps = {
   heading: '',
   variant: '',
 };
-
-export default Alert;

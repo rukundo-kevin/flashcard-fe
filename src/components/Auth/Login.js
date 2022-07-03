@@ -4,11 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
-import FormAction from './FormAction';
-import FormExtra from './FormExtra';
-import Input from './Input';
-import Alert from './Alert';
-import Header from './Header';
+import {FormAction, Input, Alert, FormExtra, Header} from "./"
 
 import { LOGIN_MUTATION } from '../../api/auth.api';
 
@@ -73,7 +69,7 @@ const Login = () => {
     const { email, password } = loginState;
     userLogin(email, password)
     .then(data=> data.json())
-    .then(res=>console.log(res))
+    .then(res=>setAuth(true))
     .catch( err=>
       {
        let {message} = JSON.parse((JSON.stringify(err)));

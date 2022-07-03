@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Header = ({ heading }) => {
+export const Header = ({ heading }) => {
   return (
     <div className="mb-10">
       <div className="flex justify-center" />
@@ -19,5 +19,3 @@ Header.propTypes = {
 Header.defaultProps = {
   heading: '',
 };
-
-export default Header;

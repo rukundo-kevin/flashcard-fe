@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 
-import FormAction from './FormAction';
-import Input from './Input';
-import Alert from './Alert';
-import Header from './Header';
-import FormExtra from './FormExtra';
+import {FormAction, Input, Alert, FormExtra, Header} from "./"
+
+import { REGISTER_MUTATION } from '../../api/auth.api';
 
 const fields  = [
   {
@@ -59,25 +58,44 @@ const Signup = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (message.length > 1) return navigate('../login');
-  //   }, 300);
-  // }, [message]);
+  const [userRegister] = useMutation(REGISTER_MUTATION, {
+    variables: {
+      username: signupState.username,
+      email: signupState.email,
+      password: signupState.password
+    },
+    onCompleted: ({ signup }) => {
+      localStorage.setItem("AUTH_TOKEN", signup.token);
+      navigate('/');
+    }
+  })
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (message.length > 1) return navigate('../login');
+    }, 300);
+  }, [message]);
 
   const handleChange = (e) => setSignupState({ ...signupState, [e.target.id]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { firstname, lastname, email, password, confirmPassword } = signupState;
+    const { username, email, password, confirmPassword } = signupState;
     if (password !== confirmPassword) {
       return setError("Passwords don't match");
     }
-   console.log("Call register api")
-  };
+    userRegister(username, email, password)
+    .then(data=> console.log(data))
+    .then(res=>setMessage("Register Success"))
+    .catch( err=>
+      {
+        console.log(err)
+       let {message} = JSON.parse((JSON.stringify(err)));
+        setError(message)
+      }
+    )  };
 
   return (
     <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-900">
@@ -85,7 +103,7 @@ const Signup = () => {
     <Header heading="Create an account" />
     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
       <div className="">
-        {error && <Alert message={error.payload} heading="Error" variant="error" />}
+        {error && <Alert message={error} heading="Error" variant="error" />}
         {message && <Alert message={message.payload} heading="Success" variant="success" />}
         {fields.map((field) => (
           <Input

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const FormAction = ({ handleSubmit, type, action, text }) => {
+export const FormAction = ({ handleSubmit, type, action, text }) => {
   return (
     <>
       {type === 'Button' ? (
@@ -33,4 +33,3 @@ FormAction.defaultProps = {
   text: '',
 };
 
-export default FormAction;

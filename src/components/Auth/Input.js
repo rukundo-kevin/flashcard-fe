@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({
+export const Input = ({
   handleChange,
   value,
   labelText,
@@ -60,5 +60,3 @@ Input.defaultProps = {
   placeholder: '',
   customClass: '',
 };
-
-export default Input;
