@@ -39,7 +39,6 @@ fields.forEach((field) => {
 const Login = () => {
   const [loginState, setLoginState] = useState(fieldsState);
   const [error, setError] = useState("");
-  const [isAuth, setAuth] = useState(false);
 
   const navigate = useNavigate();
 
@@ -56,9 +55,9 @@ const Login = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (isAuth) return navigate('../');
+      if (localStorage.getItem("AUTH_TOKEN")) return navigate('/');
     }, 300);
-  }, [isAuth]);
+  },[]);
 
   const handleChange = (e) => {
     setLoginState({ ...loginState, [e.target.id]: e.target.value });
@@ -69,7 +68,7 @@ const Login = () => {
     const { email, password } = loginState;
     userLogin(email, password)
     .then(data=> data.json())
-    .then(res=>setAuth(true))
+    .then(res=>console.log(res))
     .catch( err=>
       {
        let {message} = JSON.parse((JSON.stringify(err)));
@@ -86,7 +85,6 @@ const Login = () => {
       <Header heading="Login to Flashcards" />
 
         {error && <Alert message={error} heading="Error" variant="error" />}
-        {isAuth && <Alert message="Login successful" heading="Success" variant="success" />}
         {fields.map((field) => (
           <Input
             key={field.id}
