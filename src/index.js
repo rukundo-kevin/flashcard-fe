@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 
 import {
@@ -32,10 +32,11 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
   <ApolloProvider client={client}>
     <AllRoutes/>
-  </ApolloProvider>,
-  document.getElementById('root')
-);
+  </ApolloProvider>
+  );
  

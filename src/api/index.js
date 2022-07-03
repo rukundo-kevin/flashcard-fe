@@ -23,4 +23,14 @@ mutation RegisterMutation(
 }
 `;
 
-
+export const CREATE_FLASHCARD = gql`
+mutation CREATE_FLASHCARD(
+  $title: String!
+  $answer: String!
+  $question: String!
+) {
+  signup(answer: $answer, question: $question, title: $title) {
+    title
+  }
+}
+`;

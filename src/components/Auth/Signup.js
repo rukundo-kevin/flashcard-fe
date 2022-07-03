@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 
 import {FormAction, Input, Alert, FormExtra, Header} from "./"
 
-import { REGISTER_MUTATION } from '../../api/auth.api';
+import { REGISTER_MUTATION } from '../../api';
 
 const fields  = [
   {

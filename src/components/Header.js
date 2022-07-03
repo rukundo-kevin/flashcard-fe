@@ -3,16 +3,22 @@ import { Link } from 'react-router-dom';
 
 const LandingHeader = () => {
   return (
-    <div className="w-full h-fit bg-black backdrop-blur-md flex justify-between p-7 " data-testid="header">
+    <>
+    <div className="w-full h-fit bg-gray-900 backdrop-blur-md flex justify-between p-7 " data-testid="header">
       <div className="w-max text-white">
         <p className="text-x">
           <span className="text-2xl t">FLASHCARD APP </span>
         </p>
       </div>
-      <div className="flex list-none w-1/2 justify-between items-center text-white cursor-pointer">
+      <div className="flex list-none w-1/2 justify-flexStart items-center text-white cursor-pointer ">
         <li className="px-4">
+          <Link to="create" className="hover:text-[#FAB33F] transition duration-300">
+            Create New Card
+          </Link>
+        </li>
+        <li className="px-60">
           <Link to="/services" className="hover:text-[#FAB33F] transition duration-300">
-            Services
+            View Cards
           </Link>
         </li>
       </div>
@@ -27,6 +33,7 @@ const LandingHeader = () => {
         </li>
       </div>
     </div>
+    </>
   );
 };
 
