@@ -101,7 +101,7 @@ const Signup = () => {
             placeholder={field.placeholder}
           />
         ))}
-        <FormExtra />
+        <FormExtra linkText={"Already Have an Account?"} linkUrl="/login"/>
         <FormAction handleSubmit={handleSubmit} text="Register" />
       </div>
     </form>

@@ -44,11 +44,11 @@ const Login = () => {
   const navigate = useNavigate();
 
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (isAuth) return navigate('../dashboard');
-  //   }, 300);
-  // }, [isAuth]);
+  useEffect(() => {
+    setTimeout(() => {
+      if (isAuth) return navigate('../dashboard');
+    }, 300);
+  }, [isAuth]);
 
   const handleChange = (e) => {
     setLoginState({ ...loginState, [e.target.id]: e.target.value });
@@ -84,7 +84,7 @@ const Login = () => {
           />
         ))}
       </div>
-      <FormExtra />
+      <FormExtra linkText={"Don't have an account yet? "} linkUrl="/signup"/>
       <FormAction handleSubmit={handleSubmit} text="Login" />
     </form>
     </div>

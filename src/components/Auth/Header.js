@@ -13,16 +13,11 @@ const Header = ({ heading }) => {
 
 Header.propTypes = {
   heading: PropTypes.string,
-  paragraph: PropTypes.string,
-  linkName: PropTypes.string,
-  linkUrl: PropTypes.string,
+
 };
 
 Header.defaultProps = {
   heading: '',
-  paragraph: '',
-  linkName: '',
-  linkUrl: '#',
 };
 
 export default Header;
