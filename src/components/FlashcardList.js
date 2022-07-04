@@ -1,26 +1,11 @@
 import React from "react";
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
+import { FLASHCARD_QUERY } from "../api";
 import Flashcard from "./Flashcard";
-
-const FLASHCARD_QUERY = gql`
-  {
-    flashcards {
-      id
-      title
-      question
-      answer
-      createdBy{
-        names
-      }
-    }
-  }
-`
-;
 
 const FlashcardList = () =>{
       const { data } = useQuery(FLASHCARD_QUERY);
-      console.log(data)
     return(
         <>
         {data && 

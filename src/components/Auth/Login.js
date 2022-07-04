@@ -49,7 +49,7 @@ const Login = () => {
     },
     onCompleted: ({ login }) => {
       localStorage.setItem("AUTH_TOKEN", login.token);
-      navigate('/');
+      navigate('/dashboard');
     }
   })
 

@@ -1,5 +1,20 @@
 import {  gql } from '@apollo/client';
 
+export const FLASHCARD_QUERY = gql`
+{
+  flashcards {
+    id
+    title
+    question
+    answer
+    createdBy{
+      names
+    }
+  }
+}
+`
+;
+
 export const LOGIN_MUTATION = gql`
 mutation LoginMutation(
   $email: String!

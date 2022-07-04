@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const LandingHeader = () => {
+const LandingHeader = ({handleLogout}) => {
   return (
     <>
     <div className="w-full h-fit bg-gray-900 backdrop-blur-md flex justify-between p-7 " data-testid="header">
@@ -24,12 +24,12 @@ const LandingHeader = () => {
       </div>
       <div className="flex list-none justify-evenly items-center">
         <li>
-          <Link
-            to="/signup"
+          <button
+          onClick={handleLogout}
             className="text-white  border border-solid border-white rounded py-2.5 px-5 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors duration-200"
           >
             Sign Out
-          </Link>
+          </button>
         </li>
       </div>
     </div>
